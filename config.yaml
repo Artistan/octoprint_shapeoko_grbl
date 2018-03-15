@@ -1,0 +1,137 @@
+appearance:
+  color: default
+  colorTransparent: false
+  components:
+    disabled:
+      generic: []
+      navbar: []
+      settings: []
+      sidebar: []
+      tab:
+      - temperature
+      usersettings: []
+    order: null
+  name: My Printer
+controls:
+- children:
+  - command: '?'
+    default: ''
+    name: ""
+    regex: ([-+]?[0-9.]+),([-+]?[0-9.]+),([-+]?[0-9.]+),Ln:([-+]?[0-9.]+),F:([-+]?[0-9.]+)
+    template: 'Pos: [{0}, {1}, {2}] Feed: {4}'
+    type: feedback
+  - commands:
+    - G92 X%(newX)s
+    - '?'
+    input:
+    - default: 0
+      name: ''
+      parameter: newX
+      slider: false
+    name: Set X
+  - commands:
+    - G92 Y%(newY)s
+    - '?'
+    input:
+    - default: 0
+      name: ''
+      parameter: newY
+      slider: false
+    name: Set Y
+  - commands:
+    - G92 Z%(newZ)s
+    - '?'
+    input:
+    - default: 0
+      name: ''
+      parameter: newZ
+      slider: false
+    name: Set Z
+  layout: vertical
+  name: Position
+- command: G92 X0Y0Z0
+  name: zero all
+- javascript: $("#control-jog-extrusion").remove();$("#control-jog-general").remove();$("#control-jog-custom")[0].style="";debugger;$("#control").on("click",
+    function(){OctoPrint.control.sendGcode("?")})
+  name: arrangeUI_hack
+feature:
+  firmwareDetection: false
+  modelSizeDetection: false
+  neverSendChecksum: true
+  printCancelConfirmation: false
+  sdSupport: false
+  temperatureGraph: false
+plugins:
+  announcements:
+    _config_version: 1
+    channels:
+      _blog:
+        read_until: 1513605600
+      _important:
+        read_until: 1521111600
+      _octopi:
+        read_until: 1521023400
+      _plugins:
+        read_until: 1520726400
+      _releases:
+        read_until: 1513079100
+  cura:
+    cura_engine: /usr/local/bin/cura_engine
+  discovery:
+    publicPort: 80
+    upnpUuid: e6af438a-f0ec-4c1a-b5eb-f54570c634bc
+  filamentmanager:
+    _config_version: 1
+    database:
+      clientID: 2e2a650e-1c65-11e8-9562-b827eb11b57c
+  softwareupdate:
+    _config_version: 6
+    check_providers:
+      RepetierMaintenanceHelper: octoprint_finetunerptr
+      autoselect: autoselect
+      customcontrol: customControl
+      fanspeedslider: fanspeedslider
+      filamentmanager: filamentmanager
+      filemanager: filemanager
+      gcodebar: gcodebar
+      gcodesystemcommands: gcodesystemcommands
+      printhistory: printhistory
+      stats: stats
+      systemcommandeditor: eeprom_marlin
+      touchtest: touchtest
+      touchui: touchui
+    checks:
+      octoprint:
+        update_folder: /home/pi/OctoPrint
+printerProfiles:
+  default: shapeoko
+serial:
+  autoconnect: true
+  baudrate: 115200
+  checksumRequiringCommands: []
+  disconnectOnErrors: false
+  helloCommand: M5
+  logPositionOnCancel: false
+  logPositionOnPause: false
+  port: /dev/ttyACM0
+  triggerOkForM29: false
+server:
+  commands:
+    serverRestartCommand: sudo service octoprint restart
+    systemRestartCommand: sudo shutdown -r now
+    systemShutdownCommand: sudo shutdown -h now
+  firstRun: false
+  onlineCheck:
+    enabled: true
+  pluginBlacklist:
+    enabled: true
+  secretKey: 46mW20RhJvhGJuckir4gaxBL7yMWvlR8
+  seenWizards:
+    corewizard: 3
+    cura: null
+webcam:
+  ffmpeg: /usr/bin/avconv
+  snapshot: http://127.0.0.1:8080/?action=snapshot
+  stream: /webcam/?action=stream
+  streamRatio: '4:3'
+  watermark: false
